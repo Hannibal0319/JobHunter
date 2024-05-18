@@ -1,4 +1,3 @@
-import { useEffect,useState } from 'react';
 import { useGetJobsQuery } from '../services/api'
 
 

@@ -9,9 +9,13 @@ export const Api = createApi({
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
+        url: "authentication",
         method: "POST",
-        body: { email, password },
-        strategy: "local"
+        body: { 
+          "email": email, 
+          "password": password,
+          "strategy": "local"
+        },
       }),
     }),
     getUserInfo: builder.query({
