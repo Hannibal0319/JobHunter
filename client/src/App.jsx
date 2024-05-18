@@ -6,19 +6,22 @@ import AddJob from "./components/AddJob";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Register from "./components/Register";
-
+import { store } from "./store";
+import {Provider} from "react-redux"
 function App() {
   return(
     <>
+    <Provider store={store}>
     <NavBar />
     <Routes>        
-      <Route path="/"  element={<Jobs/>} />
+      <Route path="/"  index element={<Jobs/>} />
       <Route path="/Profile"  element={<Profile />}/>
       <Route path="/AddJob"  element={<AddJob/>} />
       <Route path="/Logout"  element={<Logout />}/>
       <Route path="/Login"  element={<Login />}/>
       <Route path="/Register"  element={<Register />}/>
     </Routes>
+    </Provider>
     </>
   )
 }
