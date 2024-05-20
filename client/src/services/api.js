@@ -2,7 +2,17 @@ import { createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const Api = createApi({
   reducerPath: 'Api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3030' }),
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: 'http://localhost:3030' ,
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+  
+      return headers
+    }
+  }),
   endpoints: (builder) => ({
     getJobs: builder.query({
       query: ()=>'jobs',
@@ -19,11 +29,11 @@ export const Api = createApi({
       }),
     }),
     getUserInfo: builder.query({
-      query: (id)=>'user/'+id
+      query: (id)=>'users/'+id
     })
   }),
 })
 
-export const { useGetJobsQuery,useLoginMutation } = Api
+export const { useGetJobsQuery,useLoginMutation,useGetUserInfoQuery } = Api
 
 
