@@ -17,6 +17,9 @@ export const Api = createApi({
     getJobs: builder.query({
       query: ()=>'jobs',
     }),
+    getOneJob: builder.query({
+      query: (id)=>'jobs/'+id
+    }),
     login: builder.mutation({
       query: ({ email, password }) => ({
         url: "authentication",
@@ -28,12 +31,39 @@ export const Api = createApi({
         },
       }),
     }),
+    register: builder.mutation({
+      query: ({ email, password,name,role }) => ({
+        url: "users",
+        method: "POST",
+        body: { 
+          "email": email, 
+          "password": password,
+          "fullname": name,
+          "role": role
+        },
+      }),
+    }),
+    addExperience:  builder.mutation({
+      query: ({ company, title,interval }) => ({
+        url: "experiences",
+        method: "POST",
+        body: { 
+          "company": company,
+          "title": title,
+          "interval": interval
+        },
+      }),
+    }),
     getUserInfo: builder.query({
       query: (id)=>'users/'+id
-    })
+    }),
+    getUserExperiences: builder.query({
+      query: ()=>'experiences'
+    }),
+
   }),
 })
 
-export const { useGetJobsQuery,useLoginMutation,useGetUserInfoQuery } = Api
+export const { useGetOneJobQuery,useGetJobsQuery,useLoginMutation,useGetUserInfoQuery,useAddExperienceMutation,useRegisterMutation,useGetUserExperiencesQuery } = Api
 
 

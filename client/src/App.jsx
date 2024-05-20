@@ -4,10 +4,10 @@ import Profile from "./components/Profile";
 import Jobs from "./components/Jobs";
 import AddJob from "./components/AddJob";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
 import Register from "./components/Register";
 import { store } from "./store";
 import {Provider} from "react-redux"
+import JobDetails from "./components/JobDetails";
 function App() {
   return(
     <>
@@ -17,9 +17,9 @@ function App() {
       <Route path="/"  index element={<Jobs/>} />
       <Route path="/Profile"  element={<Profile />}/>
       <Route path="/AddJob"  element={<AddJob/>} />
-      <Route path="/Logout"  element={<Logout />}/>
       <Route path="/Login"  element={<Login />}/>
       <Route path="/Register"  element={<Register />}/>
+      <Route path="/Jobs/:id"  element={<JobDetails/>}/>
     </Routes>
     </Provider>
     </>
