@@ -20,6 +20,9 @@ export const Api = createApi({
     getOneJob: builder.query({
       query: (id)=>'jobs/'+id
     }),
+    getJobsOfCompany: builder.query({
+      query: (company)=>`jobs?company=${company}`
+    }),
     login: builder.mutation({
       query: ({ email, password }) => ({
         url: "authentication",
@@ -54,6 +57,12 @@ export const Api = createApi({
         },
       }),
     }),
+    removeJob:  builder.mutation({
+      query: ( id) => ({
+        url: "jobs/"+ +id,
+        method: "DELETE",
+      }),
+    }),
     getUserInfo: builder.query({
       query: (id)=>'users/'+id
     }),
@@ -64,6 +73,15 @@ export const Api = createApi({
   }),
 })
 
-export const { useGetOneJobQuery,useGetJobsQuery,useLoginMutation,useGetUserInfoQuery,useAddExperienceMutation,useRegisterMutation,useGetUserExperiencesQuery } = Api
+export const { useGetJobsOfCompanyQuery,
+                useGetOneJobQuery,
+                useGetJobsQuery,
+                useLoginMutation,
+                useGetUserInfoQuery,
+                useAddExperienceMutation,
+                useRegisterMutation,
+                useGetUserExperiencesQuery,
+                useRemoveJobMutation,
+             } = Api
 
 

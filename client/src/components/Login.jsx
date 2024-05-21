@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, selectLoggedInUser } from "../services/auth";
 import { store } from "../store";
 
+import { Navigate } from "react-router-dom";
 
 function Login(){
     const [ loginMutate ] = useLoginMutation()
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
+
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -24,15 +26,16 @@ function Login(){
         console.log(result);
         dispatch(login({
             id: result.user.id,
-            email: result.user.email,
-            token: result.accessToken
+            role: result.user.role,
+            token: result.accessToken,
+            name: result.user.fullname
         }))
         console.log(store.getState());
     }
     return(
         
         <div className="grid h-1/2 place-items-center">
-        {user ? user.id : <>
+        {user ? <Navigate replace to="/" /> : <>
         <br/>
         Email: <input type="text" onChange={handleEmailChange} value={email} className="border border-slate-900 rounded-lg bg-gray-200 m-2"/>
         Jelszó: <input type="password" onChange={handlePasswordChange} value={password} className="border border-slate-900 rounded-lg bg-gray-200 m-2"/>

@@ -1,15 +1,18 @@
 import { useSelector } from "react-redux";
-import { useGetUserExperiencesQuery, useGetUserInfoQuery } from "../services/api";
+import { useGetJobsOfCompanyQuery, useGetUserExperiencesQuery, useGetUserInfoQuery, useRemoveJobMutation } from "../services/api";
 import { selectLoggedInUser } from "../services/auth";
 
 function Profile(){
     const user = useSelector(selectLoggedInUser)
     const { data: dataExp,error: errorExp,isLoading: isLoadingExp } = useGetUserExperiencesQuery()
     const { data, error, isLoading } = useGetUserInfoQuery(user?.id)
-    console.log(dataExp);
+    const { data: dataJobs,error: errorJobs,isLoading: isLoadingJobs } = useGetJobsOfCompanyQuery(user?.name)
+    console.log(data,dataJobs);
+    const [removeJobMutate] = useRemoveJobMutation()
     return(
-        <div className="w-1/2 mx-auto">
-        {!error?.data.message ? <div className="">
+        <div className="w-5/6 mx-auto">
+        {!error?.data.message ? <div>
+        {user?.role==="jobseeker" ? <>
         <table className="w-full">
             <tbody>
             <tr>
@@ -45,8 +48,28 @@ function Profile(){
         }
          </tbody>
         </table>
-
-        </div>:error.data.message}
+        </>
+        :
+        
+        <div className="w-full">
+            {dataJobs?.data.map(e=>
+            <div className="bg-gray-200 w-full m-3 p-3" key={e.id}>
+            <div className="float-right">
+                    <button className="border border-slate-300 rounded">Szerkesztés</button>
+                    <button className="border border-slate-300 rounded bg-white">Megtekintés</button>
+                    <button className="border border-slate-300 rounded text-white bg-red-600" onClick={()=>removeJobMutate(e.id)}>Törlés</button>
+            </div>
+            <div className="font-bold">
+                    {e.position}
+            </div>
+                {e.type}    {e.homeOffice ? 'Remote':'On-site'}   {e.salaryFrom}-{e.salaryTo}
+            </div>
+            )}
+            <div className="text-center">
+            <button className="border border-slate-500 p-2 rounded-lg text-white bg-blue-600">Hozzáadás</button>
+            </div>
+        </div>
+        }</div>:error.data.message}
         </div>
         
     );

@@ -10,15 +10,15 @@ const authSlice = createSlice({
         login: (state,action)=>{
             state.user={
                 id: action.payload.id,
-                email: action.payload.email
+                role: action.payload.role,
+                name: action.payload.name
             }
             state.token=action.payload.token
+            
         },
         logout: (state,action)=>{
             state.user=null
             state.token=null
-            console.log('logout');
-            localStorage.clear();
 
         }
         

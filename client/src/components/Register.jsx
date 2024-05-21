@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useAddExperienceMutation, useLoginMutation, useRegisterMutation } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectLoggedInUser } from "../services/auth";
-import { store } from "../store";
+
+import { Navigate } from "react-router-dom";
 
 function Register(){
     const user = useSelector(selectLoggedInUser);
@@ -50,16 +51,19 @@ function Register(){
         console.log(result);
         dispatch(login({
             id: result.user.id,
-            email: result.user.email,
-            token: result.accessToken
+            role: result.user.role,
+            token: result.accessToken,
+            name: result.user.fullname
         }))
         addExperiences(experience)
 
     }
+
+
     return(
         <>
         <div className="m-auto h-1/2 w-1/2">
-        {user ? user.id : <div className="text-center">
+        {user ? <Navigate replace to="/" />: <div className="text-center">
         <br/>
         Teljes név: <input type="text" onChange={handleNameChange} value={name} className="border border-slate-900 rounded-lg bg-gray-200 m-2"/>
         <br/>
