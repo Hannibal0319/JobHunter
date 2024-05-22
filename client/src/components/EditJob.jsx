@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useAddJobMutation } from "../services/api";
+import { useEditJobMutation } from "../services/api";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AddJob(){
+function EditJob(){
+    const {id}=useParams()
     const navigate = useNavigate()
-    const [addJobMutate] = useAddJobMutation()
+    const [editJobMutate] = useEditJobMutation()
     const [name,setName]=useState('')
     const [position,setPosition]=useState('')
     const [description,setDescription]=useState('')
@@ -42,19 +43,19 @@ function AddJob(){
     const handleDescriptionChange = (e) =>{
         setDescription(e.target.value)
     }    
-    const handleAddJob = async (e) =>{
-        const result = await addJobMutate({
-            id: user?.id,
-            name: name, 
+    const handleEditJob = async (e) =>{
+        const result = await editJobMutate({
+            id: +id,
+            company: name, 
             position: position,
             description: description,
-            salaryFrom: minSalary,
-            salaryTo: maxSalary,
+            salaryFrom: +minSalary,
+            salaryTo: +maxSalary,
             type: type,
             city: city,
             homeOffice: homeOffice
         })
-        navigate("/")
+        navigate("/Profile")
     } 
 
     return(
@@ -81,9 +82,9 @@ function AddJob(){
         <input type="text" className="border border-slate-500 rounded-lg" onChange={handleCityChange} value={city}/><br/>
         {"Home Office: "} 
         <input type="checkbox" onChange={handleHomeOfficeChange} value={homeOffice}/><br/>
-        <button className="border m-3 text-white border-slate-500 rounded-lg p-2 bg-blue-600" onClick={handleAddJob}> Hozzáad</button>
+        <button className="border m-3 text-white border-slate-500 rounded-lg p-2 bg-blue-600" onClick={handleEditJob}> Hozzáad</button>
         </div>
     );
 }
 
-export default AddJob;
+export default EditJob;

@@ -13,15 +13,19 @@ export const Api = createApi({
       return headers
     }
   }),
+  tagTypes: ['Jobs'],
   endpoints: (builder) => ({
     getJobs: builder.query({
       query: ()=>'jobs',
+      providesTags: ['Jobs']
     }),
     getOneJob: builder.query({
-      query: (id)=>'jobs/'+id
+      query: (id)=>'jobs/'+id,
+      providesTags: ['Jobs']
     }),
     getJobsOfCompany: builder.query({
-      query: (company)=>`jobs?company=${company}`
+      query: (id)=>`jobs?userId=${id}`,
+      providesTags: ['Jobs']
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
@@ -57,11 +61,29 @@ export const Api = createApi({
         },
       }),
     }),
+    addJob: builder.mutation({
+      query: ({ id,name,position ,description,salaryFrom,salaryTo,type,city,homeOffice }) => ({
+        url: "jobs/"+ +id,
+        method: "POST",
+        body: { 
+          "company":name,
+          "position":position,
+          "description": description,
+          "salaryFrom": salaryFrom,
+          "salaryTo": salaryTo,
+          "type":type,
+          "city": city,
+          "homeOffice":homeOffice
+        },
+      }),
+      invalidatesTags: ['Jobs'],
+    }),
     removeJob:  builder.mutation({
-      query: ( id) => ({
+      query: ({id}) => ({
         url: "jobs/"+ +id,
         method: "DELETE",
       }),
+      invalidatesTags: ['Jobs'],
     }),
     getUserInfo: builder.query({
       query: (id)=>'users/'+id
@@ -69,7 +91,14 @@ export const Api = createApi({
     getUserExperiences: builder.query({
       query: ()=>'experiences'
     }),
-
+    editJob: builder.mutation({
+      query: (body) => ({
+        url: `jobs/${body.id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Jobs']
+    })
   }),
 })
 
@@ -82,6 +111,8 @@ export const { useGetJobsOfCompanyQuery,
                 useRegisterMutation,
                 useGetUserExperiencesQuery,
                 useRemoveJobMutation,
+                useAddJobMutation,
+                useEditJobMutation,
              } = Api
 
 

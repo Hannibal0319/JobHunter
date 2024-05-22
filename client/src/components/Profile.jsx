@@ -1,16 +1,21 @@
 import { useSelector } from "react-redux";
 import { useGetJobsOfCompanyQuery, useGetUserExperiencesQuery, useGetUserInfoQuery, useRemoveJobMutation } from "../services/api";
 import { selectLoggedInUser } from "../services/auth";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Profile(){
+    const navigate = useNavigate();
+    
     const user = useSelector(selectLoggedInUser)
+
     const { data: dataExp,error: errorExp,isLoading: isLoadingExp } = useGetUserExperiencesQuery()
     const { data, error, isLoading } = useGetUserInfoQuery(user?.id)
-    const { data: dataJobs,error: errorJobs,isLoading: isLoadingJobs } = useGetJobsOfCompanyQuery(user?.name)
-    console.log(data,dataJobs);
+    const { data: dataJobs,error: errorJobs,isLoading: isLoadingJobs } = useGetJobsOfCompanyQuery(user?.id)
     const [removeJobMutate] = useRemoveJobMutation()
     return(
         <div className="w-5/6 mx-auto">
+            
         {!error?.data.message ? <div>
         {user?.role==="jobseeker" ? <>
         <table className="w-full">
@@ -55,9 +60,9 @@ function Profile(){
             {dataJobs?.data.map(e=>
             <div className="bg-gray-200 w-full m-3 p-3" key={e.id}>
             <div className="float-right">
-                    <button className="border border-slate-300 rounded">Szerkesztés</button>
+                    <button className="border border-slate-300 rounded" onClick={()=>navigate('/EditJob/'+e.id)}>Szerkesztés</button>
                     <button className="border border-slate-300 rounded bg-white">Megtekintés</button>
-                    <button className="border border-slate-300 rounded text-white bg-red-600" onClick={()=>removeJobMutate(e.id)}>Törlés</button>
+                    <button className="border border-slate-300 rounded text-white bg-red-600" onClick={()=>{removeJobMutate({id: e.id})}}>Törlés</button>
             </div>
             <div className="font-bold">
                     {e.position}
@@ -66,7 +71,7 @@ function Profile(){
             </div>
             )}
             <div className="text-center">
-            <button className="border border-slate-500 p-2 rounded-lg text-white bg-blue-600">Hozzáadás</button>
+            <button className="border border-slate-500 p-2 rounded-lg text-white bg-blue-600" onClick={()=>navigate('/AddJob')}>Hozzáadás</button>
             </div>
         </div>
         }</div>:error.data.message}

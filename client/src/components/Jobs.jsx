@@ -19,7 +19,7 @@ function Jobs(){
         Állás neve
         <hr ></hr>
         {isLoading ? 'Loading...' : data?.data.map(e=>
-            <div key={e.id} className='p-2 bg-slate-300 rounded-lg my-2' onClick={()=>navigate("/Jobs/"+e.id)}>
+            <div key={e.id} className='h-20 p-4 bg-slate-300 rounded-lg my-2' onClick={()=>navigate("/Jobs/"+e.id)}>
                 <div className='float-right text-right'>
                 <div className='font-bold'>{e.salaryFrom}-{e.salaryTo} Ft</div>
                 <div>{e.type}</div>
