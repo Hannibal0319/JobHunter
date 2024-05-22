@@ -61,7 +61,7 @@ function Profile(){
             <div className="bg-gray-200 w-full m-3 p-3" key={e.id}>
             <div className="float-right">
                     <button className="border border-slate-300 rounded" onClick={()=>navigate('/EditJob/'+e.id)}>Szerkesztés</button>
-                    <button className="border border-slate-300 rounded bg-white">Megtekintés</button>
+                    <button className="border border-slate-300 rounded bg-white" onClick={()=>navigate('/Applicants/'+e.id)}>Megtekintés</button>
                     <button className="border border-slate-300 rounded text-white bg-red-600" onClick={()=>{removeJobMutate({id: e.id})}}>Törlés</button>
             </div>
             <div className="font-bold">

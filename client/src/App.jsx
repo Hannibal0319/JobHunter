@@ -10,6 +10,7 @@ import {Provider} from "react-redux"
 import JobDetails from "./components/JobDetails";
 import EditJob from "./components/EditJob";
 import NoMatch from "./components/NoMatch";
+import Applicants from "./components/Applicants";
 function App() {
   return(
     <>
@@ -24,7 +25,7 @@ function App() {
       <Route path="/Login"  element={<Login />}/>
       <Route path="/Register"  element={<Register />}/>
       <Route path="/Jobs/:id"  element={<JobDetails/>}/>
-
+      <Route path="/Applicants/:id"  element={<Applicants/>}/>
       <Route path="*"  element={<NoMatch/>} />
     </Routes>
     </Provider>

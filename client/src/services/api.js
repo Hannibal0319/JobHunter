@@ -13,7 +13,7 @@ export const Api = createApi({
       return headers
     }
   }),
-  tagTypes: ['Jobs'],
+  tagTypes: ['Jobs','Applicants'],
   endpoints: (builder) => ({
     getJobs: builder.query({
       query: ()=>'jobs',
@@ -26,6 +26,19 @@ export const Api = createApi({
     getJobsOfCompany: builder.query({
       query: (id)=>`jobs?userId=${id}`,
       providesTags: ['Jobs']
+    }),
+    getApplicantsForJob: builder.query({
+      query: (id)=>`applicants?jobId=${id}`,
+      providesTags: ['Applicants']
+    }),
+    applyForJob: builder.mutation({
+      query: (id) => ({
+        url: "applicants",
+        method: "POST",
+        body: { 
+          "jobId": id
+        },
+      }),
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
@@ -113,6 +126,8 @@ export const { useGetJobsOfCompanyQuery,
                 useRemoveJobMutation,
                 useAddJobMutation,
                 useEditJobMutation,
+                useApplyForJobMutation,
+                useGetApplicantsForJobQuery,
              } = Api
 
 

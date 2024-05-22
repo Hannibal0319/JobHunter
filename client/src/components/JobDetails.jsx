@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useGetOneJobQuery } from "../services/api";
+import { useApplyForJobMutation, useGetOneJobQuery } from "../services/api";
 
 
 function JobDetails(){
     const {id}=useParams()
     const { data, error, isLoading } = useGetOneJobQuery(id)
     console.log(data);
+    const [applyMutate] = useApplyForJobMutation(id);
 
     return(
         < div className="w-1/2 mx-auto">
@@ -15,7 +16,7 @@ function JobDetails(){
             <tbody>
                 <tr>
                     <td>Állás részletei</td>
-                    <td><button className="border border-slate-500 bg-slate-200 rounded-lg p-1 hover:bg-blue-600 hover:text-white">Jelentkezés</button></td>
+                    <td><button className="border border-slate-500 bg-slate-200 rounded-lg p-1 hover:bg-blue-600 hover:text-white" onClick={async ()=>{await applyMutate(+id);alert("Sikeres jelentkezés")}}>Jelentkezés</button></td>
                 </tr>
                 <tr className="even:bg-gray-100">
                     <td className="w-1/2">Név:</td>
