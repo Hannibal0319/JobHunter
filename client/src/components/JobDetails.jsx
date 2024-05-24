@@ -6,8 +6,8 @@ function JobDetails(){
     const {id}=useParams()
     const { data, error, isLoading } = useGetOneJobQuery(id)
     console.log(data);
-    const [applyMutate] = useApplyForJobMutation(id);
-
+    const [applyMutate,{error: applyError}] = useApplyForJobMutation(id);
+    
     return(
         < div className="w-1/2 mx-auto">
         {!error?.data.message ?
@@ -16,7 +16,10 @@ function JobDetails(){
             <tbody>
                 <tr>
                     <td>Állás részletei</td>
-                    <td><button className="border border-slate-500 bg-slate-200 rounded-lg p-1 hover:bg-blue-600 hover:text-white" onClick={async ()=>{await applyMutate(+id);alert("Sikeres jelentkezés")}}>Jelentkezés</button></td>
+                    <td>
+                        <button className="border border-slate-500 bg-slate-200 rounded-lg p-1 hover:bg-blue-600 hover:text-white" onClick={async ()=>{await applyMutate(+id);alert("Sikeres jelentkezés")}}>Jelentkezés</button>
+                    {applyError ? applyError.data.message:''}
+                    </td>
                 </tr>
                 <tr className="even:bg-gray-100">
                     <td className="w-1/2">Név:</td>

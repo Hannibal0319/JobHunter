@@ -245,7 +245,7 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 - [x] Navigáció: Az oldal kezeli, hogy munkáltatóként vagy munkavállalóként jelentkezünk be, más más navigációt jelenít meg (1pt)
 - [x] Főoldal: A Főoldal megjelenik a keresővel (1pt)
 - [x] Főoldal: Az oldalon kilistázza a meghirdetett állásokat (1pt)
-- [ ] Főoldal: Az oldalon lehet szűrni az állásokra (2pt)
+- [x] Főoldal: Az oldalon lehet szűrni az állásokra (2pt)
 - [x] Főoldal: Az állásokra kattintva átvisz minket az alkalmazás az álláshirdetés részletező oldalára, ahol az ahhoz tartozó adatok jelennek meg (2pt)
 - [x] Regisztráció: A regisztráció működik (1pt)
 - [x] Regisztráció: A felhasználó munkavállalóként és munkáltatóként is regisztrálhat, különböző mezők jelennek meg a leendő fiók típusától függően (3pt)
@@ -266,5 +266,5 @@ Az elkészült program beadása a Canvasen történik, és két dolgot kell ide 
 Összesen: 30 pont (Minimum: 12 pont)
 
 - [ ] Plusz feladat: az álláshirdetések listája infinite-scrollinggal jelenik meg (+2pt)
-- [ ] Plusz feladat: az álláshirdetések létrehozásánál a munkáltató egy range-sliderrel tudja megadni a fizetés minimum és maximum értékét (+2pt)
-- [ ] Plusz feladat: Modalban jelenik meg az oldal valamely része (vagy az álláshirdetés leírása, vagy a az álláshirdetésre jelentkező emberek listája, a profiljai) (+1pt)
+- [x] Plusz feladat: az álláshirdetések létrehozásánál a munkáltató egy range-sliderrel tudja megadni a fizetés minimum és maximum értékét (+2pt)
+- [x] Plusz feladat: Modalban jelenik meg az oldal valamely része (vagy az álláshirdetés leírása, vagy a az álláshirdetésre jelentkező emberek listája, a profiljai) (+1pt)

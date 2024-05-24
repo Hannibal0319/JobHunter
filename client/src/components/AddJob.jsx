@@ -35,9 +35,10 @@ function AddJob(){
     }
     const handleSalaryFromChange = (e) =>{
         setMinSalary(e.target.value)
+        setMaxSalary(Math.max(e.target.value,maxSalary))
     }
     const handleSalaryToChange = (e) =>{
-        setMaxSalary(e.target.value)
+        setMaxSalary(Math.max(e.target.value,minSalary))
     }
     const handleDescriptionChange = (e) =>{
         setDescription(e.target.value)
@@ -66,9 +67,9 @@ function AddJob(){
         Leírás:<br/>
         <input type="text" className="border border-slate-500 rounded-lg" onChange={handleDescriptionChange} value={description}/><br/>
         Fizetési minimum:<br/>
-        <input type="number" className="border border-slate-500 rounded-lg" onChange={handleSalaryFromChange} value={minSalary}/><br/>
+        <input type="range" min={0} max={10000000} className="border border-slate-500 rounded-lg" onChange={handleSalaryFromChange} value={minSalary}/><br/>
         Fizetési maximum:<br/>
-        <input type="number" className="border border-slate-500 rounded-lg" onChange={handleSalaryToChange} value={maxSalary}/><br/>
+        <input type="range" min={0} max={10000000} className="border border-slate-500 rounded-lg" onChange={handleSalaryToChange} value={maxSalary}/><br/>
         Foglalkoztatás típusa:<br/>
         <div>
             <input type="radio" name="full-time" value="full-time" onChange={handleTypeChange} checked={type=="full-time"}/>

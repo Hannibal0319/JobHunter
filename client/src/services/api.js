@@ -82,8 +82,8 @@ export const Api = createApi({
           "company":name,
           "position":position,
           "description": description,
-          "salaryFrom": salaryFrom,
-          "salaryTo": salaryTo,
+          "salaryFrom": +salaryFrom,
+          "salaryTo": +salaryTo,
           "type":type,
           "city": city,
           "homeOffice":homeOffice
